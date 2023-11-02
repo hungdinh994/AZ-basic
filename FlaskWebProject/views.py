@@ -89,7 +89,7 @@ def authorized():
         result = _build_msal_app(cache).acquire_token_by_authorization_code(
             request.args['code'],
             scopes=Config.SCOPE,  # Misspelled scope would cause an HTTP 400 error here
-            redirect_uri=url_for("authorized", _external=True))
+            redirect_uri=url_for("authorized", _external=True, _scheme='https'))
         if "error" in result:
             return render_template("auth_error.html", result=result)
         session["user"] = result.get("id_token_claims")
@@ -109,7 +109,7 @@ def logout():
         # Also logout from your tenant's web session
         return redirect(
             Config.AUTHORITY + "/oauth2/v2.0/logout" +
-            "?post_logout_redirect_uri=" + url_for("login", _external=True))
+            "?post_logout_redirect_uri=" + url_for("login", _external=True, _scheme='https'))
 
     return redirect(url_for('login'))
 
@@ -136,4 +136,4 @@ def _build_auth_url(authority=None, scopes=None, state=None):
     return _build_msal_app().get_authorization_request_url(
         scopes,
         state=state,
-        redirect_uri=url_for("authorized", _external=True))
+        redirect_uri=url_for("authorized", _external=True, _scheme='https'))

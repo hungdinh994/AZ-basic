@@ -65,3 +65,6 @@ jobs:
           app-name: 'azapp1999'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4C8C7C2ACCEF47049476119F4C7FB782 }}
+          ENABLE_ORYX_BUILD: false
+          SCM_DO_BUILD_DURING_DEPLOYMENT: false
+          WEBSITE_RUN_FROM_PACKAGE: 0

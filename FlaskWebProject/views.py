@@ -67,9 +67,18 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             app.logger.info ('Invalid username or password')
+            app.logger.info('No issue.1')
+            app.logger.warning('Warning occurred.1')
+            app.logger.error('Error occurred.1')
+            app.logger.critical('Critical error occurred.1')
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
+        app.logger.info ('Invalid username or password')
+        app.logger.info('No issue.12')
+        app.logger.warning('Warning occurred.12')
+        app.logger.error('Error occurred.12')
+        app.logger.critical('Critical error occurred.12')
         app.logger.info('Successful login')
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':

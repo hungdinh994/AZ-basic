@@ -46,6 +46,10 @@ def new_post():
 @app.route('/post/<int:id>', methods=['GET', 'POST'])
 @login_required
 def post(id):
+    app.logger.info('No issue.15')
+    app.logger.warning('Warning occurred.15')
+    app.logger.error('Error occurred.15')
+    app.logger.critical('Critical error occurred.15')
     post = Post.query.get(int(id))
     form = PostForm(formdata=request.form, obj=post)
     if form.validate_on_submit():
@@ -60,6 +64,10 @@ def post(id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    app.logger.info('No issue.14')
+    app.logger.warning('Warning occurred.14')
+    app.logger.error('Error occurred.14')
+    app.logger.critical('Critical error occurred.14')
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()

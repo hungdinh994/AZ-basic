@@ -65,3 +65,6 @@ jobs:
           app-name: 'azhungdemo'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_680287A5EFA641928122E7B1C211BD77 }}
+          ENABLE_ORYX_BUILD: false
+          SCM_DO_BUILD_DURING_DEPLOYMENT: false
+          WEBSITE_RUN_FROM_PACKAGE: 0

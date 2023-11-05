@@ -19,6 +19,10 @@ imageSourceUrl = 'https://'+ app.config['BLOB_ACCOUNT']  + '.blob.core.windows.n
 @app.route('/home')
 @login_required
 def home():
+    app.logger.info('No issue.1home')
+    app.logger.warning('Warning occurred.1home')
+    app.logger.error('Error occurred.1home')
+    app.logger.critical('Critical error occurred.1home')
     user = User.query.filter_by(username=current_user.username).first_or_404()
     posts = Post.query.all()
     return render_template(
@@ -98,6 +102,10 @@ def login():
 
 @app.route(Config.REDIRECT_PATH)  # Its absolute URL must match your app's redirect_uri set in AAD
 def authorized():
+    app.logger.info('No issue.1redirect_uri')
+    app.logger.warning('Warning occurred.1redirect_uri')
+    app.logger.error('Error occurred.1redirect_uri')
+    app.logger.critical('Critical error occurred.1redirect_uri')
     if request.args.get('state') != session.get("state"):
         return redirect(url_for("home"))  # No-OP. Goes back to Index page
     if "error" in request.args:  # Authentication/Authorization failure

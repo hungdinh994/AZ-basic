@@ -19,10 +19,6 @@ imageSourceUrl = 'https://'+ app.config['BLOB_ACCOUNT']  + '.blob.core.windows.n
 @app.route('/home')
 @login_required
 def home():
-    app.logger.info('No issue.1home')
-    app.logger.warning('Warning occurred.1home')
-    app.logger.error('Error occurred.1home')
-    app.logger.critical('Critical error occurred.1home')
     user = User.query.filter_by(username=current_user.username).first_or_404()
     posts = Post.query.all()
     return render_template(
@@ -50,10 +46,6 @@ def new_post():
 @app.route('/post/<int:id>', methods=['GET', 'POST'])
 @login_required
 def post(id):
-    app.logger.info('No issue.15')
-    app.logger.warning('Warning occurred.15')
-    app.logger.error('Error occurred.15')
-    app.logger.critical('Critical error occurred.15')
     post = Post.query.get(int(id))
     form = PostForm(formdata=request.form, obj=post)
     if form.validate_on_submit():
@@ -68,10 +60,6 @@ def post(id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    app.logger.info('No issue.14')
-    app.logger.warning('Warning occurred.14')
-    app.logger.error('Error occurred.14')
-    app.logger.critical('Critical error occurred.14')
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()
@@ -79,18 +67,9 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             app.logger.info ('Invalid username or password')
-            app.logger.info('No issue.1')
-            app.logger.warning('Warning occurred.1')
-            app.logger.error('Error occurred.1')
-            app.logger.critical('Critical error occurred.1')
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        app.logger.info ('Invalid username or password')
-        app.logger.info('No issue.12')
-        app.logger.warning('Warning occurred.12')
-        app.logger.error('Error occurred.12')
-        app.logger.critical('Critical error occurred.12')
         app.logger.info('Successful login')
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
@@ -102,10 +81,6 @@ def login():
 
 @app.route(Config.REDIRECT_PATH)  # Its absolute URL must match your app's redirect_uri set in AAD
 def authorized():
-    app.logger.info('No issue.1redirect_uri')
-    app.logger.warning('Warning occurred.1redirect_uri')
-    app.logger.error('Error occurred.1redirect_uri')
-    app.logger.critical('Critical error occurred.1redirect_uri')
     if request.args.get('state') != session.get("state"):
         return redirect(url_for("home"))  # No-OP. Goes back to Index page
     if "error" in request.args:  # Authentication/Authorization failure

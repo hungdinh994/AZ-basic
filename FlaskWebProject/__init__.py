@@ -18,10 +18,5 @@ app.logger.addHandler(streamHandler)
 Session(app)
 db = SQLAlchemy(app)
 login = LoginManager(app)
-login.login_view = 'login'
-app.logger.info('No issue.')
-app.logger.warning('Warning occurred.')
-app.logger.error('Error occurred.')
-app.logger.critical('Critical error occurred.')
 
 import FlaskWebProject.views
